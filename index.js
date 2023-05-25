@@ -2,7 +2,15 @@ import * as puppeteer from 'puppeteer';
 
 import { PuppeteerScreenRecorder } from 'puppeteer-screen-recorder';
 
-const url = 'file:///home/amir/Documents/DEV/github/animated-svg-to-video/svg/svgdemo.html';
+import * as readline from 'node:readline';
+
+import * as url from 'url';
+
+import process from 'node:process';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+const durl = `file://${__dirname}/svg`;
 
 const vext = 'mp4'; // supports extension - mp4, avi, webm and mov
 
@@ -22,27 +30,37 @@ const Config = {
       color: 'black' | '#35A5FF',
     },
     aspectRatio: '4:3',
+    recordDurationLimit: 10,
   };
 
   //const recorder = new PuppeteerScreenRecorder(page, Config);
 
-  (async () => {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
 
-    console.log("Launching browser...")
+    console.log("Please enter filename:")
 
-    const browser = await puppeteer.launch({headless: "new"});
-    const page = await browser.newPage();
+    rl.on('line', async line => {
 
-    const recorder = new PuppeteerScreenRecorder(page, Config);
+        console.log("Launching browser...")
 
-    await recorder.start(`./report/video/demo.${vext}`); 
-    await page.goto(url); // 'https://apple.com'
-  
-    //await page.goto('https://test.com');
-    await recorder.stop();
+        const browser = await puppeteer.launch({headless: "new"});
+        const page = await browser.newPage();
 
-    console.log("Recorder is stopped")
+        const recorder = new PuppeteerScreenRecorder(page, Config);
 
-    await browser.close();
+        await recorder.start(`./report/video/${line}.${vext}`);     // demo
+        await page.goto(`${durl}/${line}`);   // url 'https://apple.com'
+    
+        //await page.goto('https://test.com');
+        await recorder.stop();
 
-  })();
+        console.log("Recorder is stopped")
+
+        await browser.close();
+
+        process.exit()
+
+    });
