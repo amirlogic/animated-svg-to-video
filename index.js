@@ -2,6 +2,7 @@ import * as puppeteer from 'puppeteer';
 
 import { PuppeteerScreenRecorder } from 'puppeteer-screen-recorder';
 
+const url = 'file:///home/amir/Documents/DEV/github/animated-svg-to-video/svg/svgdemo.html'
 
 const Config = {
     followNewTab: true,
@@ -33,7 +34,7 @@ const Config = {
     const recorder = new PuppeteerScreenRecorder(page, Config);
 
     await recorder.start('./report/video/demo.mp4'); // supports extension - mp4, avi, webm and mov
-    await page.goto('https://apple.com');
+    await page.goto(url); // 'https://apple.com'
   
     //await page.goto('https://test.com');
     await recorder.stop();
