@@ -2,6 +2,8 @@
 
 Uses Puppeteer to record a video from a SVG and CSS animations in a webpage
 
+Output extensions: mp4, avi, webm and mov
+
 ## Installation
 
 Requires downloading Puppeteer which has a large file size
@@ -11,6 +13,6 @@ Requires downloading Puppeteer which has a large file size
 
 ## Usage
 
-Put html files in the `/svg` folder
+Put html files in the `/html` folder
 
 ```npm start```

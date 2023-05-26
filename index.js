@@ -10,7 +10,7 @@ import process from 'node:process';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-const durl = `file://${__dirname}/svg`;
+const durl = `file://${__dirname}/html`;
 
 const vext = 'mp4'; // supports extension - mp4, avi, webm and mov
 
@@ -51,13 +51,17 @@ const Config = {
 
         const recorder = new PuppeteerScreenRecorder(page, Config);
 
-        await recorder.start(`./report/video/${line}.${vext}`);     // demo
-        await page.goto(`${durl}/${line}`);   // url 'https://apple.com'
+        await recorder.start(`./report/video/${line}.${vext}`);
+        await page.goto(`${durl}/${line}`);
     
         //await page.goto('https://test.com');
         await recorder.stop();
 
         console.log("Recorder is stopped")
+
+        let tdur = await recorder.getRecordDuration();
+
+        console.log(`Duration: ${tdur}`)
 
         await browser.close();
 
