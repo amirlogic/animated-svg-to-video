@@ -1,4 +1,5 @@
 /node_modules
 /report
 /svg
+/html
 .env
