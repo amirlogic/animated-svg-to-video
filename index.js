@@ -53,16 +53,9 @@ const Config = {
         await recorder.start(`./report/video/${line}.${vext}`);
         await page.goto(`${durl}/${line}`);
     
-        // Trying to set the recording duration
+        let wt = 3000
 
-        /* let wt = 3000
-
-        await page.waitForFunction(async (wt)=>{
-
-           return await new Promise((resolve, reject) => setTimeout(resolve, wt));
-        },
-        {},
-        wt); */
+        await new Promise(r => setTimeout(r, wt));
 
         //await page.goto('https://test.com');
 
