@@ -33,7 +33,6 @@ const Config = {
     recordDurationLimit: 10,
   };
 
-  //const recorder = new PuppeteerScreenRecorder(page, Config);
 
     const rl = readline.createInterface({
         input: process.stdin,
@@ -54,7 +53,19 @@ const Config = {
         await recorder.start(`./report/video/${line}.${vext}`);
         await page.goto(`${durl}/${line}`);
     
+        // Trying to set the recording duration
+
+        /* let wt = 3000
+
+        await page.waitForFunction(async (wt)=>{
+
+           return await new Promise((resolve, reject) => setTimeout(resolve, wt));
+        },
+        {},
+        wt); */
+
         //await page.goto('https://test.com');
+
         await recorder.stop();
 
         console.log("Recorder is stopped")
